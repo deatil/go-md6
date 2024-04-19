@@ -34,8 +34,9 @@ import (
 const BlockSize = 64
 
 type digest struct {
-    md6_ctx *C.md6_state
     d int
+
+    md6_ctx *C.md6_state
 }
 
 func New(d int) (*digest, error) {

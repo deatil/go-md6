@@ -190,9 +190,8 @@ int md6_standard_compress(
 #define md6_k  8
 #define md6_b 64
 
-#define md6_u 1
-
-#define md6_v() 1
+#define md6_u (64/md6_w)
+#define md6_v() (64/md6_w)
 
 #define md6_default_L 64
 
