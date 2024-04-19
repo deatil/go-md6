@@ -76,7 +76,7 @@ func (ctx *digest) Write(data []byte) (nn int, err error) {
 
     nn = len(data)
 
-    C.md6_update(ctx.md6_ctx, (*C.uchar)(unsafe.Pointer(&data[0])), C.ulonglong(uint64(len(data))*8))
+    C.md6_update(ctx.md6_ctx, (*C.uchar)(unsafe.Pointer(&data[0])), C.uint64_t(uint64(len(data))*8))
     return
 }
 
