@@ -1,11 +1,11 @@
 # go-md6
 
-md6 摘要, cgo 方式实现
+md6 摘要, 使用 cgo 方式实现
 
 
 ### 环境要求
 
-启用CGO: CGO_ENABLED=1
+CGO_ENABLED=1
 
 
 ### 使用方法
