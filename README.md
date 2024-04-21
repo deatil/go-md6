@@ -11,7 +11,7 @@ CGO_ENABLED=1
 ### Download
 
 ```cmd
-git clone github.com/deatil/go-md6
+git get -u github.com/deatil/go-md6
 ```
 
 
