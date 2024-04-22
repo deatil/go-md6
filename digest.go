@@ -30,19 +30,25 @@ import (
     "runtime"
 )
 
+// The size list of a md6 hash value in bytes
+const Size224 = 28
+const Size256 = 32
+const Size384 = 48
+const Size512 = 64
+
 // The block size of the hash algorithm in bytes.
 const BlockSize = 64
 
 type digest struct {
-    d int
-
     md6_ctx *C.md6_state
+
+    d int
 }
 
-func New(d int) (*digest, error) {
+func newDigest(d int) (*digest, error) {
     md6_ctx := C.md6_ctx_new()
     if md6_ctx == nil {
-        return nil, errors.New("Malloc error")
+        return nil, errors.New("md6: Malloc error")
     }
 
     ret := &digest{
@@ -92,4 +98,16 @@ func (ctx *digest) checkSum() (out []byte) {
     outbuf := make([]byte, ctx.d / 8)
     C.md6_final(ctx.md6_ctx, (*C.uchar)(unsafe.Pointer(&outbuf[0])))
     return outbuf
+}
+
+func sum(d int, data []byte) (out []byte, err error) {
+    nn := C.uint64_t(uint64(len(data))*8)
+
+    outbuf := make([]byte, d / 8)
+    e := C.md6_hash(C.int(d), (*C.uchar)(unsafe.Pointer(&data[0])), nn, (*C.uchar)(unsafe.Pointer(&outbuf[0])))
+    if e != 0 {
+        return nil, errors.New("md6: fail hash")
+    }
+
+    return outbuf, nil
 }
